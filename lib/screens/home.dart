@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/models/categorymodel.dart';
+import 'package:news_app/screens/article.dart';
 import 'package:news_app/service/data.dart';
 import 'package:news_app/service/news.dart';
+import 'package:news_app/screens/categories.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -58,8 +61,8 @@ class _HomeState extends State<Home> {
 
               Container(
                 // margin: EdgeInsets.symmetric(vertical: 5.0),
-                height: 100.0,
-                color: Colors.red,
+                height: 80.0,
+                // color: Colors.red,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
@@ -105,20 +108,20 @@ class _HomeState extends State<Home> {
 
               //Blogs
 
-              SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.all(16),
-                  child: ListView.builder(
-                      itemCount:  articles.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context,index){
-                        return BlogTile(
-                            imageUrl: articles[index].urlToImage,
-                            title: articles[index].title,
-                            desc: articles[index].description,
-                        );
-                      },
-                  ),
+              Container(
+                padding: EdgeInsets.all(16),
+                child: ListView.builder(
+                    itemCount:  articles.length,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemBuilder: (context,index){
+                      return BlogTile(
+                          imageUrl: articles[index].urlToImage,
+                          title: articles[index].title,
+                          desc: articles[index].description,
+                          url: articles[index].url,
+                      );
+                    },
                 ),
               ),
             ],
@@ -131,14 +134,18 @@ class _HomeState extends State<Home> {
 
 class CategoryTile extends StatelessWidget {
 
-  final imageUrl, categoryName;
+  final String imageUrl, categoryName;
   CategoryTile({this.imageUrl,this.categoryName});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-
+        Navigator.push(context,
+            MaterialPageRoute(
+            builder: (context)=>CategoryNews(category: categoryName.toLowerCase(),),
+            ),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(right: 8,left: 8),
@@ -146,8 +153,8 @@ class CategoryTile extends StatelessWidget {
           children: <Widget>[
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                imageUrl,
+              child: CachedNetworkImage(
+                imageUrl: imageUrl,
                 width: 120,
                 height: 75,
                 fit: BoxFit.cover,
@@ -180,17 +187,42 @@ class CategoryTile extends StatelessWidget {
 
 class BlogTile extends StatelessWidget {
 
-  final String imageUrl,title,desc;
-  BlogTile({@required this.imageUrl,@required this.title,@required this.desc});
+  final String imageUrl,title,desc,url;
+  BlogTile({@required this.imageUrl,@required this.title,@required this.desc,@required this.url});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Image.network(imageUrl),
-          Text(title),
-          Text(desc),
-        ],
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context)=>ArticleView(blogUrl: url,),
+            ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 16),
+        child: Column(
+          children: [
+            ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(imageUrl)),
+            SizedBox(height: 8,),
+            Text(title,style:
+              TextStyle(
+                fontSize: 18,
+                  color: Colors.black87,
+                  fontWeight: FontWeight.w500
+              ),
+            ),
+            SizedBox(height: 8,),
+            Text(desc,style:
+            TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.w600
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
