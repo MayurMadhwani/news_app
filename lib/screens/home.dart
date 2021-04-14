@@ -7,6 +7,7 @@ import 'package:news_app/screens/article.dart';
 import 'package:news_app/service/data.dart';
 import 'package:news_app/service/news.dart';
 import 'package:news_app/screens/categories.dart';
+import 'package:splashscreen/splashscreen.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,7 +51,10 @@ class _HomeState extends State<Home> {
       ),
       body: _loading ?Center(
         child: Container(
-          child: CircularProgressIndicator(),
+          child: SplashScreen(
+            seconds: 2,
+            title: Text(" Powered By\nNEWSAPI.org",style: TextStyle(fontSize: 18),),
+          ),
           ),
       ) : SingleChildScrollView(
         child: Container(
