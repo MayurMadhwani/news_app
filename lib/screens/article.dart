@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'home.dart';
 
 class ArticleView extends StatefulWidget {
 
@@ -25,9 +26,12 @@ class _ArticleViewState extends State<ArticleView> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Let's",style: TextStyle(fontSize: 25),),
-            Text("News",style: TextStyle(fontSize: 25,color: Colors.lightBlueAccent),),
-          ],
+              Text("Let'sNews",style: TextStyle(
+                fontSize: 25,
+                foreground: Paint()..shader = linearGradient2
+               ),
+             ),
+            ],
         ),
         actions: [
           Opacity(

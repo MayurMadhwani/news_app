@@ -8,6 +8,15 @@ import 'package:news_app/service/data.dart';
 import 'package:news_app/service/news.dart';
 import 'package:news_app/screens/categories.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
+
+final Shader linearGradient = LinearGradient(
+  colors: <Color>[Colors.black, Colors.lightBlueAccent],
+).createShader(Rect.fromLTWH(50.0, 20.0, 200.0, 70.0));
+
+final Shader linearGradient2 = LinearGradient(
+  colors: <Color>[Colors.black, Colors.lightBlueAccent],
+).createShader(Rect.fromLTWH(100.0, 100.0, 150.0, 200.0));
 
 class Home extends StatefulWidget {
   @override
@@ -38,22 +47,33 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: !_loading ? AppBar(
         elevation: 0,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Let's",style: TextStyle(fontSize: 25),),
-            Text("News",style: TextStyle(fontSize: 25,color: Colors.lightBlueAccent),),
+            Text("Let'sNews",style: TextStyle(
+                fontSize: 25,
+                foreground: Paint()..shader = linearGradient2
+              ),
+            ),
+            // Text("News",style: TextStyle(fontSize: 25,color: Colors.lightBlueAccent),),
           ],
         ),
+      ):AppBar(
+        elevation: 0,
       ),
       body: _loading ?Center(
         child: Container(
           child: SplashScreen(
             seconds: 2,
-            title: Text(" Powered By\nNEWSAPI.org",style: TextStyle(fontSize: 18),),
+            title:Text("  Let'sNews\n Powered By\nNEWSAPI.org",
+              style: new TextStyle(
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.w400,
+                  foreground: Paint()..shader = linearGradient),
+            )
           ),
           ),
       ) : SingleChildScrollView(

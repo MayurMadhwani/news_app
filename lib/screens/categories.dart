@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 import 'package:news_app/screens/article.dart';
 import 'package:news_app/service/news.dart';
+import 'home.dart';
 
 class CategoryNews extends StatefulWidget {
 
@@ -41,8 +42,11 @@ class _CategoryNewsState extends State<CategoryNews> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Let's",style: TextStyle(fontSize: 25),),
-            Text("News",style: TextStyle(fontSize: 25,color: Colors.lightBlueAccent),),
+            Text("Let'sNews",style: TextStyle(
+                fontSize: 25,
+                foreground: Paint()..shader = linearGradient2
+            ),
+            ),
           ],
         ),
         actions: [
