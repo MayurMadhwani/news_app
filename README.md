@@ -9,6 +9,4 @@ Used news api(https://newsapi.org/) to get the news.
 
 #Main Screen and Categories
 
-<img src="tutorial/i2.png" width=250 alignment = center>
-
-<img src="tutorial/i3.png" width=250 alignment = center>
+<img src="tutorial/i2.png" width=250 alignment = center> <img src="tutorial/i3.png" width=250 alignment = center>
